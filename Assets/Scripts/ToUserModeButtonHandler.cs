@@ -33,6 +33,10 @@ public class ToUserModeButtonHandler : MonoBehaviour
         creatorPanel.GetComponent<ElementsCreatorPanel>().HidePanel();
         editButton.GetComponent<EditButtonAction>().Hide();
         isMoving = true;
+
+        if (AppAction.buttonPropertiesDiglog != null)
+            Destroy(AppAction.buttonPropertiesDiglog);
+        AppAction.buttonPropertiesDiglog = null;
     }
 
     // Update is called once per frame

@@ -11,11 +11,13 @@ public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private Vector3 clickOffset;
     private Vector3 oldPosition;
 
+    GameObject editButton;
+
     bool isMoving = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        editButton = GameObject.FindGameObjectWithTag("EditButton");
     }
 
     // Update is called once per frame
@@ -62,10 +64,8 @@ public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         Debug.Log("button unpressed");
         BluetoothController.SetMessage(null);
         isMoving = false;
-        Debug.Log("timer " + pressTimer);
 
         Vector3 moveOffset = oldPosition - transform.position;
-        Debug.Log(moveOffset.magnitude);
 
         if (pressTimer < 0.3 && Mathf.Abs(moveOffset.magnitude) < 0.001F)
         {
@@ -85,6 +85,8 @@ public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             {
                 AppAction.selectedButton = null;
                 Destroy(this.gameObject.GetComponent<Outline>());
+
+                editButton.GetComponent<EditButtonAction>().Hide();
             }
             else
             {
@@ -94,6 +96,8 @@ public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
                 this.gameObject.AddComponent<Outline>();
                 this.gameObject.GetComponent<Outline>().effectColor = Color.yellow;
                 this.gameObject.GetComponent<Outline>().effectDistance = new Vector2(3, 3);
+
+                editButton.GetComponent<EditButtonAction>().Show();
             }
         }
     }
