@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ToUserModeButtonHandler : MonoBehaviour
 {
     GameObject creatorPanel;
+    GameObject editButton;
 
     private bool isMoving;
     private Vector3 attachPanelPosition;
@@ -16,6 +17,7 @@ public class ToUserModeButtonHandler : MonoBehaviour
     void Start()
     {
         creatorPanel = GameObject.FindGameObjectWithTag("ButtonsCreator");
+        editButton = GameObject.FindGameObjectWithTag("EditButton");
         this.gameObject.GetComponent<Button>().onClick.AddListener(ToUserMode);
 
         buttonHeight = GetComponent<RectTransform>().anchorMax.y - GetComponent<RectTransform>().anchorMin.y;
@@ -29,6 +31,7 @@ public class ToUserModeButtonHandler : MonoBehaviour
     {
         creatorPanel.GetComponent<ElementsCreatorPanel>().SetBottomAttachButtonHeight(buttonHeight);
         creatorPanel.GetComponent<ElementsCreatorPanel>().HidePanel();
+        editButton.GetComponent<EditButtonAction>().Hide();
         isMoving = true;
     }
 

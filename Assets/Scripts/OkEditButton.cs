@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class OkEditButton : MonoBehaviour
 {
+
     void Start()
     {
         this.gameObject.GetComponent<Button>().onClick.AddListener(SubmitButtonChanges);
@@ -22,9 +23,5 @@ public class OkEditButton : MonoBehaviour
         Destroy(this.transform.parent.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

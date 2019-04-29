@@ -52,7 +52,6 @@ public class ElementsCreatorPanel : MonoBehaviour
 
         Vector3 pos = transform.position;
         pos.y += panelHeight;
-        Debug.Log(bottomAttachButtonHeight + " " + panelHeight);
         hidenInventoryPos = pos;
     }
 
