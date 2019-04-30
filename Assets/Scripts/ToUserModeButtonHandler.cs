@@ -34,9 +34,9 @@ public class ToUserModeButtonHandler : MonoBehaviour
         editButton.GetComponent<EditButtonAction>().Hide();
         isMoving = true;
 
-        if (AppAction.buttonPropertiesDiglog != null)
-            Destroy(AppAction.buttonPropertiesDiglog);
-        AppAction.buttonPropertiesDiglog = null;
+        if (AppAction.propertiesDialog != null)
+            Destroy(AppAction.propertiesDialog);
+        AppAction.propertiesDialog = null;
     }
 
     // Update is called once per frame

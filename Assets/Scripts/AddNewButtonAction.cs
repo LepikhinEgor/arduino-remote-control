@@ -21,8 +21,8 @@ public class AddNewButtonAction : MonoBehaviour
     void CreateDialog()
     {
         GameObject editorCanvas = GameObject.FindGameObjectWithTag("EditorCanvas");
-        AppAction.buttonPropertiesDiglog = (GameObject)Instantiate(buttonEditorPrefab, editorCanvas.transform);
-        OkEditButton okButton = AppAction.buttonPropertiesDiglog.transform.Find("OKButton").GetComponent<OkEditButton>();
+        AppAction.propertiesDialog = (GameObject)Instantiate(buttonEditorPrefab, editorCanvas.transform);
+        OkEditButton okButton = AppAction.propertiesDialog.transform.Find("OKButton").GetComponent<OkEditButton>();
         okButton.SetCreateMod();
         Debug.Log("created dialog");
     }

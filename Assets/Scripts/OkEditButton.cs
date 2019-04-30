@@ -18,22 +18,37 @@ public class OkEditButton : MonoBehaviour
 
     public void SubmitButtonChanges()
     {
-        InputField inputName = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonName").GetComponent<InputField>();
-        InputField inputMessage = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonMessage").GetComponent<InputField>();
+        InputField inputName = AppAction.propertiesDialog.transform.Find("InputButtonName").GetComponent<InputField>();
+        InputField inputMessage = AppAction.propertiesDialog.transform.Find("InputButtonMessage").GetComponent<InputField>();
+        InputField inputWidth = AppAction.propertiesDialog.transform.Find("InputButtonWidth").GetComponent<InputField>();
+        InputField inputHeight = AppAction.propertiesDialog.transform.Find("InputButtonHeight").GetComponent<InputField>();
 
-        AppAction.selectedButton.GetComponent<ButtonData>().SetButtonName(inputName.text);
-        AppAction.selectedButton.GetComponent<ButtonData>().SetButtonMessage(inputMessage.text);
+        AppAction.selectedItem.GetComponent<ButtonData>().SetButtonName(inputName.text);
+        AppAction.selectedItem.GetComponent<ButtonData>().SetButtonMessage(inputMessage.text);
+        double widthCoef = Convert.ToDouble(inputWidth.text, System.Globalization.CultureInfo.InvariantCulture);
+        double heightCoef = Convert.ToDouble(inputHeight.text, System.Globalization.CultureInfo.InvariantCulture);
+
+        if (widthCoef < 0.5)
+            widthCoef = 0.5;
+        if (heightCoef < 0.5)
+            heightCoef = 0.5;
+
+        //widthCoef--;
+        //heightCoef--;// чтобы при коефициенте 1 не прибавлялось ничего
+
+        AppAction.selectedItem.GetComponent<ButtonData>().SetWidthCoef((float)widthCoef);
+        AppAction.selectedItem.GetComponent<ButtonData>().SetHeightCoef((float)heightCoef);
 
         AppAction.isEditButtonDataMode = false;
-        Destroy(AppAction.buttonPropertiesDiglog);
+        Destroy(AppAction.propertiesDialog);
     }
 
     public void CreateNewButton()
     {
-        InputField inputName = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonName").GetComponent<InputField>();
-        InputField inputMessage = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonMessage").GetComponent<InputField>();
-        InputField inputWidth = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonWidth").GetComponent<InputField>();
-        InputField inputHeight = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonHeight").GetComponent<InputField>();
+        InputField inputName = AppAction.propertiesDialog.transform.Find("InputButtonName").GetComponent<InputField>();
+        InputField inputMessage = AppAction.propertiesDialog.transform.Find("InputButtonMessage").GetComponent<InputField>();
+        InputField inputWidth = AppAction.propertiesDialog.transform.Find("InputButtonWidth").GetComponent<InputField>();
+        InputField inputHeight = AppAction.propertiesDialog.transform.Find("InputButtonHeight").GetComponent<InputField>();
 
         GameObject buttonsPanel = GameObject.FindGameObjectWithTag("WorkspaceButtons");
         GameObject newButton = (GameObject)Instantiate(newButtonPrefab, buttonsPanel.transform);
@@ -49,23 +64,13 @@ public class OkEditButton : MonoBehaviour
         if (heightCoef < 0.5)
             heightCoef = 0.5;
 
-        widthCoef--;
-        heightCoef--;// чтобы при коефициенте 1 не прибавлялось ничего
+        //widthCoef--;
+        //heightCoef--;// чтобы при коефициенте 1 не прибавлялось ничего
 
-        RectTransform rect = newButton.GetComponent<RectTransform>();
+        newButton.GetComponent<ButtonData>().SetWidthCoef((float)widthCoef);
+        newButton.GetComponent<ButtonData>().SetHeightCoef((float)heightCoef);
 
-        Vector2 maxAnch = rect.anchorMax;
-        Vector2 minAnch = rect.anchorMin;
-
-        float diffX = rect.anchorMax.x - rect.anchorMin.x;
-        float diffY = rect.anchorMax.y - rect.anchorMin.y;
-
-        maxAnch.x += (float)(diffX * widthCoef);
-        maxAnch.y += (float)(diffY * heightCoef);
-
-        rect.anchorMax = maxAnch;
-
-        Destroy(AppAction.buttonPropertiesDiglog);
+        Destroy(AppAction.propertiesDialog);
     }
 
     public void SetCreateMod()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor.SceneManagement;
 
 public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
@@ -81,18 +82,18 @@ public class ButtonHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         Debug.Log("button clicked");
         if (!AppAction.isEditButtonDataMode)
         {
-            if (AppAction.selectedButton == this.gameObject)
+            if (AppAction.selectedItem == this.gameObject)
             {
-                AppAction.selectedButton = null;
+                AppAction.selectedItem = null;
                 Destroy(this.gameObject.GetComponent<Outline>());
 
                 editButton.GetComponent<EditButtonAction>().Hide();
             }
             else
             {
-                if (AppAction.selectedButton != null)
-                    Destroy(AppAction.selectedButton.GetComponent<Outline>());
-                AppAction.selectedButton = this.gameObject;
+                if (AppAction.selectedItem != null)
+                    Destroy(AppAction.selectedItem.GetComponent<Outline>());
+                AppAction.selectedItem = this.gameObject;
                 this.gameObject.AddComponent<Outline>();
                 this.gameObject.GetComponent<Outline>().effectColor = Color.yellow;
                 this.gameObject.GetComponent<Outline>().effectDistance = new Vector2(3, 3);

@@ -26,20 +26,27 @@ public class EditButtonAction : MonoBehaviour
     {
         if (!AppAction.isEditButtonDataMode)
         {
-            AppAction.buttonPropertiesDiglog = (GameObject)Instantiate(buttonEditorPrefab, transform.parent);
+            AppAction.propertiesDialog = (GameObject)Instantiate(buttonEditorPrefab, transform.parent);
             AppAction.isEditButtonDataMode = true;
 
-            OkEditButton okButton = AppAction.buttonPropertiesDiglog.transform.Find("OKButton").GetComponent<OkEditButton>();
+            OkEditButton okButton = AppAction.propertiesDialog.transform.Find("OKButton").GetComponent<OkEditButton>();
             okButton.SetChangeMod();
 
-            InputField inputName = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonName").GetComponent<InputField>();
-            InputField inputMessage = AppAction.buttonPropertiesDiglog.transform.Find("InputButtonMessage").GetComponent<InputField>();
+            InputField inputName = AppAction.propertiesDialog.transform.Find("InputButtonName").GetComponent<InputField>();
+            InputField inputMessage = AppAction.propertiesDialog.transform.Find("InputButtonMessage").GetComponent<InputField>();
+            InputField inputWidth = AppAction.propertiesDialog.transform.Find("InputButtonWidth").GetComponent<InputField>();
+            InputField inputHeight = AppAction.propertiesDialog.transform.Find("InputButtonHeight").GetComponent<InputField>();
 
-            string buttonName = AppAction.selectedButton.GetComponent<ButtonData>().GetButtonName();
-            string buttonMessage = AppAction.selectedButton.GetComponent<ButtonData>().GetButtonMessage();
+            string buttonName = AppAction.selectedItem.GetComponent<ButtonData>().GetButtonName();
+            string buttonMessage = AppAction.selectedItem.GetComponent<ButtonData>().GetButtonMessage();
+            float buttonWidth = AppAction.selectedItem.GetComponent<ButtonData>().GetWidthCoef();
+            float buttonHeight = AppAction.selectedItem.GetComponent<ButtonData>().GetHeightCoef();
+            Debug.Log(buttonWidth + " x " + buttonHeight);
 
             inputName.text = buttonName;
             inputMessage.text = buttonMessage;
+            inputWidth.text = buttonWidth.ToString();
+            inputHeight.text = buttonHeight.ToString();
         }
     }
     public void Hide()
